@@ -1,46 +1,25 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
-import { Mission } from '../models/mission'
+import { map } from 'rxjs/operators'; // Add this import
+import { Launch } from '../models/mission';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class SpacexapiService {
+export class SpacexService {
+  private apiUrl = 'https://api.spacexdata.com/v3/launches';
 
-  missions$: any
+  constructor(private http: HttpClient) {}
 
-  missions: Mission[] = []
-
-  private missionsUrl = 'https://api.spacexdata.com/v3/launches'
-
-  constructor(private http: HttpClient) { }
-
-  fetchRawData(): Observable<Object> {
-    return this.http.get(this.missionsUrl)
+  getLaunches(year?: number): Observable<Launch[]> {
+    const url = year ? `${this.apiUrl}?launch_year=${year}` : this.apiUrl;
+    return this.http.get<Launch[]>(url);
   }
 
-  fetchMissions() {
-    this.missions$ = this.fetchRawData()
-    return this.getMissionsData()
+  // Add this method
+  getLaunchDetails(flight_number: number): Observable<Launch> {
+    const url = `${this.apiUrl}/${flight_number}`;
+    return this.http.get<Launch>(url).pipe(map((response) => response));
   }
-
-  getMissionsData(): Mission[] {
-    this.missions$.forEach((element: any) => {
-      element.forEach((eachMission: any) => {
-        const { flight_number, mission_name, launch_year, details, links } = eachMission
-        const mission_patch_small: string = links.mission_patch_small
-        const mission: Mission = { flight_number, mission_name, launch_year, details, mission_patch_small}
-        this.missions.push(mission)
-      })
-    });
-    return this.missions
-  }
-
-  findMission(id: number): any {
-    const allMissions = this.fetchMissions()
-    return allMissions.find(mission => mission.flight_number == id)
-
-  }
-
 }

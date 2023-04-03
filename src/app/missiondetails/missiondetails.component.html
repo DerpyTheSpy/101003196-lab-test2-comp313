@@ -1,25 +1,12 @@
-<h2 class="page-title">SpaceX Mission Details</h2>
-<div class="button-wrapper">
-  <button class="back-button" mat-button color="accent" (click)="goBack()">Back</button>
-</div>
-<div *ngIf="mission">
-  <div class="main-card">
-    <mat-card class="example-card">
-      <mat-card-header>
-        <img
-          class="example-header-image"
-          src="{{ mission.mission_patch_small }}"
-        />
-        <mat-card-title><strong>Name:</strong> {{ mission.mission_name }}</mat-card-title>
-        <mat-card-subtitle>
-            <strong>Launch year:</strong> {{ mission.launch_year }}
-        </mat-card-subtitle>
-      </mat-card-header>
-
-      <mat-card-content>
-        <p><strong>Launch Details</strong></p>
-        <p>{{ mission.details }}</p>
-      </mat-card-content>
-    </mat-card>
-  </div>
+<div *ngIf="selectedMission">
+  <h2>{{ selectedMission.mission_name }}</h2>
+  <p>Flight Number: {{ selectedMission.flight_number }}</p>
+  <p>Launch Year: {{ selectedMission.launch_year }}</p>
+  <p>Rocket Name: {{ selectedMission.rocket.rocket_name }}</p>
+  <p>Rocket Type: {{ selectedMission.rocket.rocket_type }}</p>
+  <p>Launch Success: {{ selectedMission.launch_success ? "Yes" : "No" }}</p>
+  <p>Launch Date: {{ selectedMission.launch_date_utc | date : "medium" }}</p>
+  <p>
+    <a [href]="selectedMission.links.article_link" target="_blank">Read More</a>
+  </p>
 </div>

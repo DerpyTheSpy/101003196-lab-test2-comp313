@@ -1,27 +1,36 @@
-import { Component } from '@angular/core';
-import { SpacexapiService } from '../network/spacexapi.service'
-import { Mission } from '../models/mission'
+import { Component, OnInit } from '@angular/core';
+import { SpacexService } from '../network/spacexapi.service';
+import { Launch } from '../models/mission';
+import { Router } from '@angular/router'; // Add this import
 
 @Component({
   selector: 'app-missionlist',
   templateUrl: './missionlist.component.html',
-  styleUrls: ['./missionlist.component.css']
+  styleUrls: ['./missionlist.component.css'],
 })
-export class MissionlistComponent {
-  missions: Mission[] = []
+export class MissionlistComponent implements OnInit {
+  launches: Launch[] = [];
+  selectedMission: Launch | null = null;
 
-  selectedMission?: Mission
-
-  constructor(
-    private spacexapiService: SpacexapiService,
-
-  ) { }
+  // Inject Router into the constructor
+  constructor(private spacexService: SpacexService, private router: Router) {}
 
   ngOnInit(): void {
-    this.getMissions()
+    this.fetchLaunches();
   }
 
-  getMissions(): void{
-    this.missions = this.spacexapiService.fetchMissions()
+  fetchLaunches(year?: number): void {
+    this.spacexService.getLaunches(year).subscribe((data: Launch[]) => {
+      this.launches = data;
+    });
+  }
+
+  onYearSelected(year: number | null): void {
+    this.fetchLaunches(year === null ? undefined : year);
+  }
+
+  // Update selectMission to navigate to missiondetails component
+  selectMission(launch: Launch): void {
+    this.router.navigate(['/missiondetails', launch.flight_number]);
   }
 }

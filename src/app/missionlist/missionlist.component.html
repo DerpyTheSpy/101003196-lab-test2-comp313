@@ -1,19 +1,22 @@
-<h2 class="page-title">SpaceX Mission Launch List</h2>
-
-<hr />
-<ul>
-  <li *ngFor="let mission of missions">
-    <a routerLink="details/{{ mission.flight_number }}">
-      <mat-card class="example-card" >
-        <mat-card-header>
-          <img mat-card-avatar src="{{ mission.mission_patch_small }}" />
-          <mat-card-title>{{ mission.mission_name }}</mat-card-title>
-          <mat-card-subtitle>{{ mission.launch_year }}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <p>{{ mission.details }}</p>
-        </mat-card-content>
-      </mat-card>
-    </a>
-  </li>
-</ul>
+<app-missionfilter (yearSelected)="onYearSelected($event)"></app-missionfilter>
+<mat-accordion class="mission-list">
+  <mat-expansion-panel *ngFor="let launch of launches">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ launch.mission_name }}
+      </mat-panel-title>
+      <mat-panel-description>
+        Launch Year: {{ launch.launch_year }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <img
+      [src]="launch.links.mission_patch_small"
+      alt="Mission Patch"
+      class="mission-image"
+    />
+    <p>Details: {{ launch.details }}</p>
+    <app-missiondetails
+      [flightNumber]="launch.flight_number"
+    ></app-missiondetails>
+  </mat-expansion-panel>
+</mat-accordion>
