@@ -1,9 +1,14 @@
-<mat-form-field appearance="fill">
-    <mat-label>Select Launch Year</mat-label>
-    <mat-select [(value)]="selectedYear" (selectionChange)="onYearChange()">
-      <mat-option>None</mat-option>
-      <mat-option *ngFor="let year of years" [value]="year">{{
-        year
-      }}</mat-option>
-    </mat-select>
-  </mat-form-field>
+<table>
+    <tr>
+      <td><label>Select Launch Year</label></td>
+      <td>
+        <mat-form-field appearance="fill">
+          <mat-select [(value)]="selectedYear" (selectionChange)="onYearChange()">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+    </tr>
+  </table>
+  

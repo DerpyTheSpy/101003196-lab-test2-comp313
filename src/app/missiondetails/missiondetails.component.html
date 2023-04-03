@@ -1,12 +1,14 @@
 <div *ngIf="selectedMission">
   <h2>{{ selectedMission.mission_name }}</h2>
-  <p>Flight Number: {{ selectedMission.flight_number }}</p>
-  <p>Launch Year: {{ selectedMission.launch_year }}</p>
-  <p>Rocket Name: {{ selectedMission.rocket.rocket_name }}</p>
-  <p>Rocket Type: {{ selectedMission.rocket.rocket_type }}</p>
-  <p>Launch Success: {{ selectedMission.launch_success ? "Yes" : "No" }}</p>
-  <p>Launch Date: {{ selectedMission.launch_date_utc | date : "medium" }}</p>
-  <p>
-    <a [href]="selectedMission.links.article_link" target="_blank">Read More</a>
-  </p>
+  <ul>
+    <li><strong>Flight Number:</strong> {{ selectedMission.flight_number }}</li>
+    <li><strong>Launch Year:</strong> {{ selectedMission.launch_year }}</li>
+    <li><strong>Rocket Name:</strong> {{ selectedMission.rocket.rocket_name }}</li>
+    <li><strong>Rocket Type:</strong> {{ selectedMission.rocket.rocket_type }}</li>
+    <li><strong>Launch Success:</strong> {{ selectedMission.launch_success ? "Yes" : "No" }}</li>
+    <li><strong>Launch Date:</strong> {{ selectedMission.launch_date_utc | date : "medium" }}</li>
+    <li>
+      <a [href]="selectedMission.links.article_link" target="_blank">Read More</a>
+    </li>
+  </ul>
 </div>
