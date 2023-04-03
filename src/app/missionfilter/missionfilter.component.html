@@ -1,0 +1,8 @@
+<mat-form-field>
+    <mat-label>Filter by Year of Launch</mat-label>
+    <mat-select [(ngModel)]="selectedYear">
+      <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-button (click)="applyFilter()">Apply Filter</button>
+  
