@@ -1,41 +1,6 @@
 <mat-toolbar color="primary">
     <span>SpaceX Mission List</span>
   </mat-toolbar>
-  
   <div class="app-container">
-    <mat-form-field appearance="fill">
-      <mat-label>Filter by Launch Year</mat-label>
-      <input matInput type="text" (keyup)="applyFilter($event.target.value)" placeholder="Enter year">
-    </mat-form-field>
-  
-    <table mat-table [dataSource]="dataSource" matSort>
-  
-      <!-- Mission Name Column -->
-      <ng-container matColumnDef="mission_name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Mission Name</th>
-        <td mat-cell *matCellDef="let mission">{{ mission.mission_name }}</td>
-      </ng-container>
-  
-      <!-- Launch Year Column -->
-      <ng-container matColumnDef="launch_year">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Launch Year</th>
-        <td mat-cell *matCellDef="let mission">{{ mission.launch_year }}</td>
-      </ng-container>
-  
-      <!-- Details Column -->
-      <ng-container matColumnDef="details">
-        <th mat-header-cell *matHeaderCellDef>Details</th>
-        <td mat-cell *matCellDef="let mission">{{ mission.details }}</td>
-      </ng-container>
-  
-      <!-- Mission Patch Column -->
-      <ng-container matColumnDef="mission_patch_small">
-        <th mat-header-cell *matHeaderCellDef>Mission Patch</th>
-        <td mat-cell *matCellDef="let mission"><img [src]="mission.links.mission_patch_small"></td>
-      </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectMission(row)"></tr>
-    </table>
+    <router-outlet></router-outlet>
   </div>
-  
