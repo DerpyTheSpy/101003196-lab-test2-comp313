@@ -1,20 +1,21 @@
-<table class="mission-list">
-  <thead>
-    <tr>
-      <th>Mission Name</th>
-      <th>Launch Year</th>
-      <th>Mission Patch</th>
-      <th>Details</th>
-      <th>Mission Details</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let launch of launches">
-      <td>{{ launch.mission_name }}</td>
-      <td>{{ launch.launch_year }}</td>
-      <td><img [src]="launch.links.mission_patch_small" alt="Mission Patch" class="mission-image" /></td>
-      <td>{{ launch.details }}</td>
-      <td><app-missiondetails [flightNumber]="launch.flight_number"></app-missiondetails></td>
-    </tr>
-  </tbody>
-</table>
+<div class="mission-list">
+  <div *ngFor="let launch of launches">
+    <div class="mission-card">
+      <div class="mission-card-header">
+        <h3>{{ launch.mission_name }}</h3>
+        <p>Launch Year: {{ launch.launch_year }}</p>
+      </div>
+      <div class="mission-card-body">
+        <img
+          [src]="launch.links.mission_patch_small"
+          alt="Mission Patch"
+          class="mission-image"
+        />
+        <p><strong>Details:</strong> {{ launch.details }}</p>
+      </div>
+      <div class="mission-card-footer">
+        <app-missiondetails [flightNumber]="launch.flight_number"></app-missiondetails>
+      </div>
+    </div>
+  </div>
+</div>
