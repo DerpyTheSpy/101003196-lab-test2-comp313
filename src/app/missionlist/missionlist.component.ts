@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { SpacexapiService } from '../network/spacexapi.service'
+import { Mission } from '../models/mission'
 
 @Component({
   selector: 'app-missionlist',
@@ -6,5 +8,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./missionlist.component.css']
 })
 export class MissionlistComponent {
+  missions: Mission[] = []
 
+  selectedMission?: Mission
+
+  constructor(
+    private spacexapiService: SpacexapiService,
+
+  ) { }
+
+  ngOnInit(): void {
+    this.getMissions()
+  }
+
+  getMissions(): void{
+    this.missions = this.spacexapiService.fetchMissions()
+  }
 }
